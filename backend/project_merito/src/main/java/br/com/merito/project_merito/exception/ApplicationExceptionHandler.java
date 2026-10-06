@@ -56,4 +56,28 @@ public class ApplicationExceptionHandler {
     return mapaDeErro;
   }
 
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(AbastecimentoNaoEncontradoException.class)
+  public Map<String, String> manusearAbastecimentoNaoEncontrado(
+      AbastecimentoNaoEncontradoException erro) {
+
+    Map<String, String> mapaDeErro = new HashMap<>();
+
+    mapaDeErro.put("erro", erro.getMessage());
+
+    return mapaDeErro;
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(RegraNegocioAbastecerException.class)
+  public Map<String, String> manusearRegraNegocioAbastecer(
+      RegraNegocioAbastecerException erro) {
+
+    Map<String, String> mapaDeErro = new HashMap<>();
+
+    mapaDeErro.put("erro", erro.getMessage());
+
+    return mapaDeErro;
+  }
+
 }

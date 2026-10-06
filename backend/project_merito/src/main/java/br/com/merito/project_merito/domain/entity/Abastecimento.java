@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "abastecimentos")
@@ -24,11 +24,11 @@ public class Abastecimento {
   private Bomba bomba;
 
   @Column(nullable = false)
-  private LocalDateTime dataAbastecimento;
+  private LocalDate dataAbastecimento;
 
   @Column(nullable = false, precision = 10, scale = 2)
   private BigDecimal valorTotal;
 
-  @Column(nullable = false, precision = 10, scale = 2)
+  @Column(nullable = false, precision = 10, scale = 3)
   private BigDecimal litragem;
 }
