@@ -1,73 +1,143 @@
-# 🔹 Desafio Técnico Júnior #1 – Cadastro e Consulta de Abastecimentos
+# Desafio Técnico Júnior #1 – Cadastro e Consulta de Abastecimentos
 
-## 🛠 Objetivo
+API REST desenvolvida em **Java 21 + Spring Boot** para cadastro e consulta de abastecimentos em um posto de combustível, com persistência em **PostgreSQL**.
 
-Desenvolver uma aplicação simples em **Java** para cadastro e consulta de abastecimentos em um posto de combustível, com armazenamento em banco de dados e exibição dos dados via **Java Swing** ou **API REST**.
+## 🛠 Tecnologias
 
----
+* Java 21
+* Spring Boot
+* Spring Data JPA
+* PostgreSQL
+* Gradle
+* Bean Validation
+* Lombok
 
-## 📌 Funcionalidades Implementadas
+## 🏗️ Estrutura
 
-✅ Operaçoes basicas (Criar, Listar, Alterar, Deletar) de **Tipos de Combustível** 
-- Nome - Texto
-- Preço por litro
+A aplicação utiliza uma arquitetura em camadas:
 
-✅ Operaçoes basicas (Criar, Listar, Alterar, Deletar) de **Bombas de Combustível** (relacionadas a um tipo de combustível)
-- Nome da bomba
-- Combustivel que abastece
+```text id="5vlbkw"
+Controller → Service → Repository → PostgreSQL
+```
 
-✅ Operaçoes basicas (Criar, Listar, Alterar, Deletar)  de **Abastecimentos** (com data, volume abastecido e valor total)
-- Bomba que foi realizado o abastecimento
-- Data do abastecimento
-- Quantidade em valores
-- Litragem
-  
-✅ **Consulta** de todos os dados cadastrados (via Java Swing ou API)  
-✅ Persistência dos dados (ao menos em tempo de execução)  
+   Também foram utilizados **DTOs**, tratamento centralizado de exceções e **exceptions personalizadas** para diferentes cenários da aplicação.
 
----
+## 📋 Funcionalidades
 
-## ✅ Requisitos Atendidos
+### Tipos de Combustível
 
-- Projeto Java com estrutura organizada (usando Maven ou Gradle)
-- Relacionamentos entre entidades corretamente implementados
-- Interface gráfica Java Swing **ou** API HTTP para cadastro e consulta
-- Código comentado e organizado
+* Criar, listar, consultar, alterar e excluir.
+* Nome e preço por litro.
 
----
+### Bombas
 
-## 🌟 Diferenciais Implementados
+* Criar, listar, consultar, alterar e excluir.
+* Nome e tipo de combustível.
 
-- API RESTful simples com rotas `GET`, `POST`, `PUT`
-- Boas práticas de organização de código (DAO, camada de serviço, etc.)
-- Persistencia dos dados (em caso de restart da aplicação manter os dados)
-- 
----
+### Abastecimentos
 
-## 📬 Como entregar o desafio
+* Criar, listar, consultar, alterar e excluir.
+* Bomba, data, valor total e litragem.
 
-1. **Faça um fork** deste repositório.
-2. Implemente a solução no seu fork.
-3. Faça commits organizados com mensagens claras.
-4. Após finalizar:
-   - Envie o link do **repositório forkado** com a sua solução.
-   - Certifique-se de que o projeto roda sem erros e que o README está atualizado.
+## 🔗 Endpoints
 
----
-## 🔍 O que será avaliado
+```text id="w1h6dq"
+Tipos de Combustível
+POST   /api/tipos-combustiveis
+GET    /api/tipos-combustiveis
+GET    /api/tipos-combustiveis/{id}
+PUT    /api/tipos-combustiveis/{id}
+DELETE /api/tipos-combustiveis/{id}
 
-- Sua **comunicação**, especialmente ao surgir dúvidas ou obstáculos durante o desenvolvimento.
-- **O processo de desenvolvimento** como um todo, e não apenas o resultado final.
-- A clareza e organização dos **commits** realizados.
-- Sua capacidade de **estruturar a solução em etapas**, mesmo que nem todos os requisitos sejam concluídos.
+Bombas
+POST   /api/bombas
+GET    /api/bombas
+GET    /api/bombas/{id}
+PUT    /api/bombas/{id}
+DELETE /api/bombas/{id}
 
----
+Abastecimentos
+POST   /api/abastecimentos
+GET    /api/abastecimentos
+GET    /api/abastecimentos/{id}
+PUT    /api/abastecimentos/{id}
+DELETE /api/abastecimentos/{id}
+```
 
-## 💡 Dicas para se sair bem
+## 💡 Regra de negócio
 
-- Divida o desafio em **pequenas partes** e implemente **com calma**, focando em cada funcionalidade por vez.
-- Use **commits claros e objetivos**, indicando exatamente o que foi alterado ou implementado.
-- Em caso de dúvida, **comunique-se** — mostrar que você sabe buscar soluções é um ponto positivo.
-- Mesmo que não finalize 100% dos requisitos, **a qualidade do seu processo será levada em conta**.
+No cadastro de abastecimentos, pode ser informado o **valor total**, a **litragem** ou ambos.
 
----
+* Somente litragem → o valor total é calculado.
+* Somente valor → a litragem é calculada.
+* Ambos → os valores são validados para garantir compatibilidade.
+
+## ⚙️ Como executar
+
+### Pré-requisitos
+
+* Java 21
+* PostgreSQL
+* Git
+
+### Banco de dados
+
+Crie um banco PostgreSQL chamado:
+
+```text id="z2o9is"
+project_merito
+```
+
+Configure as credenciais no arquivo:
+
+```text id="6z8p6v"
+backend/project_merito/src/main/resources/application.properties
+```
+
+Exemplo:
+
+```properties id="7j3b1f"
+spring.datasource.url=jdbc:postgresql://localhost:5432/project_merito
+spring.datasource.username=postgres
+spring.datasource.password=SUA_SENHA
+```
+
+### Executando
+
+```bash id="3opd9s"
+cd backend/project_merito
+./gradlew.bat bootRun
+```
+
+A API ficará disponível em:
+
+```text id="9gkq38"
+http://localhost:8080
+```
+
+### Testando
+
+A API pode ser testada utilizando **Postman, Insomnia, Bruno ou cURL**.
+
+Exemplo:
+
+```http
+POST /api/tipos-combustiveis
+```
+
+```json id="7t6b5j"
+{
+    "nome": "Gasolina",
+    "precoPorLitro": 5.89
+}
+```
+
+## 💾 Persistência
+
+Os dados são armazenados no PostgreSQL e permanecem disponíveis após reiniciar a aplicação.
+
+## 📌 Observações
+
+A solução utiliza **API REST**, conforme uma das opções previstas no desafio, e possui CRUD completo para as três entidades, validações, tratamento de exceções e regras de negócio para os abastecimentos.
+
+
