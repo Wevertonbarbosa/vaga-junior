@@ -90,6 +90,18 @@ Crie um banco PostgreSQL chamado:
 project_merito
 ```
 
+**Não esqueça de anotar a sua senha do banco no PostgreSQL!**
+
+### Executando
+
+```bash id="3opd9s"
+git clone https://github.com/Wevertonbarbosa/vaga-junior.git
+```
+
+```bash id="3opd9s"
+cd backend/project_merito
+```
+
 Configure as credenciais no arquivo:
 
 ```text id="6z8p6v"
@@ -104,12 +116,11 @@ spring.datasource.username=postgres
 spring.datasource.password=SUA_SENHA
 ```
 
-### Executando
-
+Rode o projeto Bash/PowerShell
 ```bash id="3opd9s"
-cd backend/project_merito
 ./gradlew.bat bootRun
 ```
+
 
 A API ficará disponível em:
 
