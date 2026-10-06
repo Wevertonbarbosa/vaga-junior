@@ -44,4 +44,16 @@ public class ApplicationExceptionHandler {
     return mapaDeErro;
   }
 
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(BombaNaoEncontradaException.class)
+  public Map<String, String> manusearBombasNaoEncontrado(
+      BombaNaoEncontradaException erro) {
+
+    Map<String, String> mapaDeErro = new HashMap<>();
+
+    mapaDeErro.put("erro", erro.getMessage());
+
+    return mapaDeErro;
+  }
+
 }
