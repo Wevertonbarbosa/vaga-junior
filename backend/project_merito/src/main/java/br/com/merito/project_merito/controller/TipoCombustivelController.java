@@ -19,6 +19,7 @@ public class TipoCombustivelController {
     this.tipoCombustivelService = tipoCombustivelService;
   }
 
+  // Cria um novo tipo de combustível após validar os dados recebidos.
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public TipoCombustivelResponse salvar(
@@ -45,6 +46,7 @@ public class TipoCombustivelController {
     tipoCombustivelService.excluir(id);
   }
 
+  // Atualiza os dados de um tipo de combustível existente.
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public TipoCombustivelResponse atualizar(

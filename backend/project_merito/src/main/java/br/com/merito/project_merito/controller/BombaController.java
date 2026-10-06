@@ -19,6 +19,7 @@ public class BombaController {
     this.bombaService = bombaService;
   }
 
+  // Cria uma nova bomba associada a um tipo de combustível existente.
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public BombaResponse salvar(

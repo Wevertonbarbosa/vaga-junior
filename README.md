@@ -22,6 +22,8 @@ Controller → Service → Repository → PostgreSQL
 
    Também foram utilizados **DTOs**, tratamento centralizado de exceções e **exceptions personalizadas** para diferentes cenários da aplicação.
 
+   O acesso aos dados é realizado através do Spring Data JPA. O JpaRepository já fornece a camada de acesso aos dados (DAO), não sendo necessário criar uma classe **DAO** separada.
+
 ## 📋 Funcionalidades
 
 ### Tipos de Combustível

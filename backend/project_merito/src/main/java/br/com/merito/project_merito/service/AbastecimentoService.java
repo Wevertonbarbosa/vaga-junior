@@ -112,6 +112,8 @@ public class AbastecimentoService {
 
     Bomba bomba = buscarBomba(abastecimentoRequest.bombaId());
 
+    // O preço utilizado no cálculo é obtido através do combustível
+    // associado à bomba selecionada.
     BigDecimal precoPorLitro = bomba.getTipoCombustivel().getPrecoPorLitro();
 
     BigDecimal[] valores = calcularValoresAbastecimento(
@@ -122,6 +124,9 @@ public class AbastecimentoService {
     BigDecimal valorTotal = valores[0];
     BigDecimal litragem = valores[1];
 
+    // Copia os dados recebidos na requisição para a entidade.
+    // Os campos relacionados à bomba e aos valores calculados
+    // são definidos separadamente.
     BeanUtils.copyProperties(
         abastecimentoRequest,
         abastecimento);
@@ -176,6 +181,8 @@ public class AbastecimentoService {
         .divide(precoPorLitro, 3, RoundingMode.HALF_UP);
   }
 
+  // Centraliza as regras de cálculo e validação dos valores do abastecimento.
+  // É possível informar somente o valor, somente a litragem ou ambos.
   private BigDecimal[] calcularValoresAbastecimento(
       BigDecimal valorTotal,
       BigDecimal litragem,
@@ -208,7 +215,8 @@ public class AbastecimentoService {
           valorTotal,
           precoPorLitro);
     }
-
+    // Retorna os dois valores já calculados e validados
+    // para que sejam armazenados no abastecimento.
     return new BigDecimal[] {
         valorTotal,
         litragem

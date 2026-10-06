@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// Centraliza o tratamento das exceções da aplicação,
+// padronizando os códigos HTTP e as mensagens de erro.
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
 

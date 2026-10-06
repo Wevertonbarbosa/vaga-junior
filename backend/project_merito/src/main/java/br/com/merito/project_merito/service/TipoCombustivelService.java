@@ -26,6 +26,8 @@ public class TipoCombustivelService {
 
     TipoCombustivel tipoCombustivel = new TipoCombustivel();
 
+    // Copia os dados recebidos na requisição para a entidade
+    // antes de realizar a persistência no banco de dados.
     BeanUtils.copyProperties(tipoCombustivelRequest, tipoCombustivel);
 
     TipoCombustivel tipoCombustivelSalvo = tipoCombustivelRepository.save(tipoCombustivel);
@@ -38,6 +40,8 @@ public class TipoCombustivelService {
 
   public TipoCombustivelResponse buscarPorId(Long id) {
 
+    // O Optional permite verificar se o combustível existe
+    // antes de realizar o acesso aos seus dados.
     Optional<TipoCombustivel> tipoCombustivelOptional = tipoCombustivelRepository.findById(id);
 
     if (tipoCombustivelOptional.isPresent()) {
@@ -56,7 +60,8 @@ public class TipoCombustivelService {
   }
 
   public List<TipoCombustivelResponse> listarTodos() {
-
+    // Converte as entidades retornadas pelo banco em DTOs de resposta,
+    // evitando expor diretamente as entidades da aplicação.
     return tipoCombustivelRepository
         .findAll()
         .stream()
@@ -91,7 +96,8 @@ public class TipoCombustivelService {
     if (tipoCombustivelOptional.isPresent()) {
 
       TipoCombustivel tipoCombustivel = tipoCombustivelOptional.get();
-
+      // Atualiza os dados da entidade existente com os valores recebidos
+      // na requisição, mantendo o mesmo registro no banco.
       BeanUtils.copyProperties(
           tipoCombustivelRequest,
           tipoCombustivel);

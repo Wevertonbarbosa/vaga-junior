@@ -28,11 +28,14 @@ public class BombaService {
   }
 
   public BombaResponse salvarBomba(BombaRequest bombaRequest) {
-
+    // A bomba deve estar associada a um tipo de combustível existente.
+    // A validação do relacionamento é feita antes de salvar a bomba.
     TipoCombustivel tipoCombustivel = buscarTipoCombustivel(bombaRequest.tipoCombustivelId());
 
     Bomba bomba = new Bomba();
 
+    // Copia os dados básicos da requisição para a entidade.
+    // O tipo de combustível é definido separadamente por ser um relacionamento.
     BeanUtils.copyProperties(bombaRequest, bomba);
 
     bomba.setTipoCombustivel(tipoCombustivel);
@@ -106,6 +109,9 @@ public class BombaService {
     }
   }
 
+  // Busca o tipo de combustível utilizado pela bomba.
+  // Caso não exista, a operação é interrompida para evitar
+  // um relacionamento inválido no banco de dados.
   private TipoCombustivel buscarTipoCombustivel(
       Long tipoCombustivelId) {
 
