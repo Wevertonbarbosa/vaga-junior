@@ -1,0 +1,11 @@
+# Gradle
+.gradle/
+**/build/
+
+# Logs e erros da JVM
+*.log
+hs_err_pid*.log
+replay_pid*.log
+
+# IDEs
+.idea/
