@@ -1,5 +1,5 @@
 
-name: CI - Backends
+name: CI/CD - Backends
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   project-merito:
-    name: Build - Project Merito
+    name: Build e Entrega - Project Merito
     runs-on: ubuntu-latest
 
     services:
@@ -52,8 +52,19 @@ jobs:
           chmod +x gradlew
           ./gradlew build
 
+      - name: Publicar artefato - Project Merito
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-merito
+          path: |
+            backend/project_merito/build/libs/*.jar
+            !backend/project_merito/build/libs/*-plain.jar
+          if-no-files-found: error
+          retention-days: 7
+
   project-relatorios:
-    name: Build - Project Relatorios
+    name: Build e Entrega - Project Relatorios
     runs-on: ubuntu-latest
 
     services:
@@ -94,3 +105,14 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
+
+      - name: Publicar artefato - Project Relatorios
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-relatorios
+          path: |
+            backend/project_relatorios/build/libs/*.jar
+            !backend/project_relatorios/build/libs/*-plain.jar
+          if-no-files-found: error
+          retention-days: 7
